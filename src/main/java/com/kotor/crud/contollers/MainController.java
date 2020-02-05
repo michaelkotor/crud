@@ -47,13 +47,13 @@ class MainController {
     @ResponseStatus(HttpStatus.OK)
     public User updateUser(@PathVariable Long userId, @RequestBody User user) {
         RestCheck.checkFound(user);
-        return null;
+        return repository.updateUserById(userId, user);
     }
 
     @DeleteMapping("/deleteUser/{userId}")
     @ResponseStatus(HttpStatus.OK)
     public User deleteUserById(@PathVariable Long userId) {
-        return null;
+        return repository.deleteUserById(userId);
     }
 
 }

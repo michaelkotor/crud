@@ -31,4 +31,24 @@ public class MainRepository {
         users.add(tempUser);
         return tempUser;
     }
+
+    public User deleteUserById(Long userId) {
+        for(int i = 0; i < users.size(); i++) {
+            if(users.get(i).getId().equals(userId)) {
+                return users.remove(i);
+            }
+        }
+        return null;
+    }
+
+    public User updateUserById(Long userId, User user) {
+        for (int i = 0; i < users.size(); i++) {
+            if(users.get(i).getId().equals(userId)) {
+                Long tempId = users.get(i).getId();
+                user.setId(tempId);
+                users.set(i, user);
+            }
+        }
+        return user;
+    }
 }
