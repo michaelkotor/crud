@@ -1,5 +1,7 @@
 package com.kotor.crud.models;
 
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
 import java.util.Objects;
 
 public class User {
