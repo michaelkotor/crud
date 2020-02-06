@@ -5,13 +5,15 @@ import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 import java.util.Random;
 
 @Component
-public class MainRepository {
+public class UserRepository {
     private List<User> users = new ArrayList();
 
-    public User findUserById(Long userId) {
+
+    public User findById(Long userId) {
         for(int i = 0; i < users.size(); i++) {
             if(users.get(i).getId().equals(userId)) return users.get(i);
         }
@@ -19,11 +21,11 @@ public class MainRepository {
     }
 
 
-    public List<User> findAllUsers() {
+    public List<User> findAll() {
         return users;
     }
 
-    public User createNewUser(User user) {
+    public User createNew(User user) {
         User tempUser = new User();
         tempUser.setUsername(user.getUsername());
         tempUser.setPassword(user.getPassword());
@@ -32,7 +34,7 @@ public class MainRepository {
         return tempUser;
     }
 
-    public User deleteUserById(Long userId) {
+    public User deleteById(Long userId) {
         for(int i = 0; i < users.size(); i++) {
             if(users.get(i).getId().equals(userId)) {
                 return users.remove(i);
@@ -41,14 +43,15 @@ public class MainRepository {
         return null;
     }
 
-    public User updateUserById(Long userId, User user) {
+    public User updateById(Long userId, User user) {
         for (int i = 0; i < users.size(); i++) {
             if(users.get(i).getId().equals(userId)) {
                 Long tempId = users.get(i).getId();
                 user.setId(tempId);
                 users.set(i, user);
+                return user;
             }
         }
-        return user;
+        return createNew(user);
     }
 }
