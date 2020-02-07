@@ -5,6 +5,7 @@ import com.kotor.crud.exceptions.BadRequest;
 import com.kotor.crud.models.Account;
 import com.kotor.crud.repository.AccountRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
@@ -29,8 +30,11 @@ public class RegistrationController {
         throw new BadRequest();
     }
 
-    @PostMapping("/accounts/login")
-    public Account login(@RequestBody Optional<Account> account) {
-            return null;
+    @GetMapping("/accounts/login")
+    public Account login(@RequestBody Optional<Account> account) throws BadRequest {
+        if(account.isPresent()) {
+
+        }
+        throw new BadRequest();
     }
 }
