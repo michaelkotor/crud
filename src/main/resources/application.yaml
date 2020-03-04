@@ -1,0 +1,20 @@
+spring:
+  application:
+    name: crud
+#  datasource:
+#    url: jdbc:mysql://localhost:3306/exaample
+#    username: root
+#    password: 1234
+
+driverClassName: com.mysql.cj.jdbc.Driver
+url: jdbc:mysql://localhost/exaample
+username: noroot
+password: 1234
+
+## MySQL
+#spring.
+#spring.
+#spring.datasource.password=password
+
+server:
+  port: 9000

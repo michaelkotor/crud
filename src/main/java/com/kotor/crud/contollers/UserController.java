@@ -2,7 +2,7 @@ package com.kotor.crud.contollers;
 
 import com.kotor.crud.exceptions.BadRequest;
 import com.kotor.crud.models.User;
-import com.kotor.crud.repository.UserRepository;
+import com.kotor.crud.repository.impl.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -13,7 +13,6 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
-import org.springframework.web.client.HttpClientErrorException;
 
 import java.util.List;
 import java.util.Optional;
@@ -88,4 +87,11 @@ public class UserController {
         return repository.deleteById(userId);
     }
 
+    @GetMapping("/test")
+    public User test() {
+        User user = new User();
+        user.setUsername("David");
+        user.setPassword("4321");
+        return repository.insertBase(user);
+    }
 }

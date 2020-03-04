@@ -1,0 +1,1 @@
+INSERT INTO users (username, passwrd) VALUES ("Michael", "1234");

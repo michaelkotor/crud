@@ -1,17 +1,46 @@
-package com.kotor.crud.repository;
+package com.kotor.crud.repository.impl;
 
 import com.kotor.crud.models.User;
+import com.kotor.crud.repository.UserDao;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
+import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.stereotype.Component;
 
+import javax.sql.DataSource;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 import java.util.Random;
 
 @Component
-public class UserRepository {
+public class UserRepository implements UserDao {
     private List<User> users = new ArrayList();
 
+
+    private NamedParameterJdbcTemplate jdbcTemplate;
+
+    @Autowired
+    @Qualifier("dataSource")
+    public void setDataSource(DataSource dataSource) {
+        this.jdbcTemplate = new NamedParameterJdbcTemplate(dataSource);
+    }
+//
+    public int test() {
+        return jdbcTemplate.getCacheLimit();
+    }
+
+    @Override
+    public User insertBase(User user) {
+        String sql = "insert into users (username, password) VALUES (:username, :password)";
+
+        MapSqlParameterSource params = new MapSqlParameterSource();
+        params.addValue("username", user.getUsername());
+        params.addValue("password", user.getPassword());
+
+        jdbcTemplate.update(sql, params);
+        return user;
+    }
 
     public User findById(Long userId) {
         for(int i = 0; i < users.size(); i++) {
