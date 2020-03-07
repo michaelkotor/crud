@@ -7,9 +7,8 @@ services:
     ports:
     - "3306:3306"
     environment:
-      MYSQL_ROOT_PASSWORD: '1234'
-      MYSQL_DATABASE: 'exaample'
-      MYSQL_USER: 'noroot'
+      MYSQL_DATABASE: crud
+      MYSQL_ROOT_PASSWORD: 1234
 
   crud:
     depends_on:
@@ -17,8 +16,8 @@ services:
     build:
       dockerfile: Dockerfile
       context: .
-    expose:
-      - "9000"
     ports:
     - "8000:9000"
     restart: always
+    links:
+      - db:db_host
