@@ -1,11 +1,15 @@
 spring:
   application:
     name: crud
+  datasource:
+    initialization-mode: always
+    continueOnError: true
 
 driverClassName: com.mysql.cj.jdbc.Driver
 url: jdbc:mysql://db_host:3306/crud?useSSL=false&allowPublicKeyRetrieval=true
 username: root
 password: 1234
+database: crud
 
 server:
   port: 9000
