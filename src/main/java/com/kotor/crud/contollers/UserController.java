@@ -2,7 +2,8 @@ package com.kotor.crud.contollers;
 
 import com.kotor.crud.exceptions.BadRequest;
 import com.kotor.crud.models.User;
-import com.kotor.crud.repository.impl.UserRepository;
+import com.kotor.crud.repository.UserRepository;
+import com.kotor.crud.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -23,11 +24,11 @@ import java.util.Optional;
 @RestController
 public class UserController {
 
+    private final UserService userService;
+
     @Autowired
-    private UserRepository repository;
-
-    public UserController() {
-
+    public UserController(UserService userService) {
+        this.userService = userService;
     }
 
     /**
@@ -35,7 +36,7 @@ public class UserController {
      */
     @GetMapping("/users")
     public List<User> getAllUsers() {
-        return repository.findAll();
+        return userService.findAll();
     }
 
     /**
@@ -44,7 +45,7 @@ public class UserController {
      */
     @GetMapping("users/{userId}")
     public User getUserById(@PathVariable Long userId) {
-        return repository.findById(userId);
+        return userService.findById(userId);
     }
 
     /**
@@ -56,7 +57,10 @@ public class UserController {
     @ResponseStatus(HttpStatus.CREATED)
     public User createUser(@RequestBody Optional<User> user) throws BadRequest {
         if(user.isPresent()) {
-            return repository.createNew(user.get());
+            User tempUser = userService.createNew(user.get());
+            if(tempUser != null) {
+                return tempUser;
+            }
         }
         throw new BadRequest();
     }
@@ -71,7 +75,7 @@ public class UserController {
     @ResponseStatus(HttpStatus.OK)
     public User updateUser(@PathVariable Long userId, @RequestBody Optional<User> user) throws BadRequest {
         if (user.isPresent()) {
-            return repository.updateById(userId, user.get());
+            return userService.updateById(userId, user.get());
         }
         throw new BadRequest();
     }
@@ -84,14 +88,6 @@ public class UserController {
     @DeleteMapping("/users/{userId}")
     @ResponseStatus(HttpStatus.OK)
     public User deleteUserById(@PathVariable Long userId) {
-        return repository.deleteById(userId);
-    }
-
-    @GetMapping("/test")
-    public User test() {
-        User user = new User();
-        user.setUsername("David");
-        user.setPassword("4321");
-        return repository.insertBase(user);
+        return userService.deleteById(userId);
     }
 }

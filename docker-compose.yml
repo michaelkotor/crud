@@ -1,4 +1,4 @@
-version: '3'
+version: '2.1'
 
 services:
   db:
@@ -9,15 +9,21 @@ services:
     environment:
       MYSQL_DATABASE: crud
       MYSQL_ROOT_PASSWORD: 1234
+    healthcheck:
+      test: ["CMD", "mysqladmin" ,"ping", "-h", "localhost"]
+      timeout: 5s
+      retries: 5
 
   crud:
     depends_on:
-      - db
+        db:
+          condition: service_healthy
     build:
       dockerfile: Dockerfile
       context: .
     ports:
     - "8000:9000"
+#    - "5005:5005"
     restart: always
     links:
       - db:db_host

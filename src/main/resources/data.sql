@@ -1,1 +1,1 @@
-INSERT INTO crud.users (username, passwrd) VALUES ("Michael", "1234");
+INSERT INTO crud.users (username, password) VALUES ("Michael", "1234");

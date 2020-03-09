@@ -4,7 +4,7 @@ import com.kotor.crud.models.User;
 
 import java.util.List;
 
-public interface UserDao {
+public interface UserRepository {
     User createNew(User user);
 
     User updateById(Long userId, User user);
@@ -15,7 +15,5 @@ public interface UserDao {
 
     List<User> findAll();
 
-    int test();
-
-    User insertBase(User user);
+    Long findByUsernameAndPassword(String username, String password);
 }
