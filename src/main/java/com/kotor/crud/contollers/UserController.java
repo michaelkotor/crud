@@ -2,7 +2,6 @@ package com.kotor.crud.contollers;
 
 import com.kotor.crud.exceptions.BadRequest;
 import com.kotor.crud.models.User;
-import com.kotor.crud.repository.UserRepository;
 import com.kotor.crud.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
